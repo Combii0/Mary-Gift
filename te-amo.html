@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Te amo, mi cielo</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="page page--love">
+    <video
+      class="page-video"
+      autoplay
+      muted
+      loop
+      playsinline
+      aria-hidden="true"
+    >
+      <source src="assets/images/sunset.mp4" type="video/mp4" />
+    </video>
+    <div class="hearts" aria-hidden="true">
+      <span>♥</span>
+      <span>♥</span>
+      <span>♥</span>
+    </div>
+    <main class="card card--love">
+      <header class="love-header">
+        <h1 class="card__title card__title--love">Te amo, mi cielo</h1>
+        <p class="card__text">
+          Gracias por ser la persona más especial de mi vida. Esta página es solo
+          un pequeño detalle para recordarte lo mucho que te amo.
+        </p>
+        <p class="card__text">
+          Hoy, mañana y siempre: tú y yo. 💖
+        </p>
+      </header>
+
+      <section class="section section--intro">
+        <h2 class="section__title">Nuestras canciones y momentos</h2>
+        <p class="section__text">
+          Cada momento contigo es tan valioso que no me lo puedo sacar de la mente mi niña, todas las memorias contigo me hacen la persona más alegre, y espero crear infinitas más a tu lado. 😘
+        </p>
+      </section>
+
+      <section class="section section--songs">
+        <button class="gallery-button" id="open-gallery" type="button">
+          <span class="gallery-button__icon">📸</span>
+          <span class="gallery-button__text">Gallery</span>
+        </button>
+        <h2 class="section__title">Nuestro playlist</h2>
+        <p class="section__text">
+          Estas son nuestras canciones. Toca alguna tarjeta para reproducirla.
+        </p>
+        <div class="song-list" id="song-list"></div>
+      </section>
+
+      <div class="audio-player" id="audio-player-ui">
+        <div class="audio-player__header">
+          <span class="audio-player__label">Sonando ahora</span>
+        </div>
+        <div class="audio-player__cover">
+          <img
+            src=""
+            alt="Foto de nosotros"
+            class="audio-player__cover-image"
+            id="player-cover"
+          />
+        </div>
+        <div class="audio-player__info">
+          <div class="audio-player__track">
+            <div class="audio-player__title" id="player-track-title">Por Ti</div>
+            <div class="audio-player__artist" id="player-track-artist">3AM</div>
+          </div>
+          <div class="audio-player__controls">
+            <button
+              class="audio-player__button"
+              id="btn-prev"
+              type="button"
+              aria-label="Canción anterior"
+            >
+              ⏮
+            </button>
+            <button
+              class="audio-player__button audio-player__button--primary"
+              id="btn-play"
+              type="button"
+              aria-label="Reproducir o pausar"
+            >
+              ▶
+            </button>
+            <button
+              class="audio-player__button"
+              id="btn-next"
+              type="button"
+              aria-label="Siguiente canción"
+            >
+              ⏭
+            </button>
+            <button
+              class="audio-player__button audio-player__button--volume"
+              id="btn-volume"
+              type="button"
+              aria-label="Ajustar volumen"
+            >
+              <img src="assets/images/volume.png" alt="Volumen" class="audio-player__icon" />
+            </button>
+            <button
+              class="audio-player__button audio-player__button--toggle"
+              id="btn-toggle-player"
+              type="button"
+              aria-label="Mostrar u ocultar reproductor"
+            >
+              <img src="assets/images/eye.png" alt="Mostrar u ocultar" class="audio-player__icon" />
+            </button>
+          </div>
+          <div class="audio-player__progress" id="progress-container">
+            <span class="audio-player__time" id="progress-current">0:00</span>
+            <input
+              type="range"
+              min="0"
+              max="100"
+              value="0"
+              class="audio-player__progress-slider"
+              id="progress-slider"
+              aria-label="Progreso de la canción"
+            />
+            <span class="audio-player__time" id="progress-duration">0:00</span>
+          </div>
+          <div class="audio-player__volume" id="volume-container">
+            <input
+              type="range"
+              min="0"
+              max="100"
+              value="80"
+              class="audio-player__volume-slider"
+              id="volume-slider"
+              aria-label="Volumen"
+            />
+          </div>
+        </div>
+        <audio id="audio-player" preload="metadata"></audio>
+      </div>
+    </main>
+
+    <button
+      class="audio-player-placeholder"
+      id="audio-player-placeholder"
+      type="button"
+      aria-label="Mostrar reproductor"
+    >
+      <img src="assets/images/disco.gif" alt="Gif del disco" />
+    </button>
+
+    <div class="gallery-modal" id="gallery-modal" aria-hidden="true">
+      <div class="gallery-modal__backdrop" id="gallery-modal-backdrop"></div>
+      <div class="gallery-modal__content">
+        <div class="gallery-modal__header">
+          <h2 class="gallery-modal__title">Nuestros momentos</h2>
+          <button
+            class="gallery-modal__close"
+            id="gallery-modal-close"
+            type="button"
+            aria-label="Cerrar galería"
+          >
+            ✕
+          </button>
+        </div>
+        <p class="gallery-modal__subtitle">
+          Una pequeña recopilación de recuerdos que amo contigo.
+        </p>
+        <div class="gallery-modal__body">
+          <div class="gallery-grid" id="gallery-grid"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="photo-modal" id="photo-modal" aria-hidden="true">
+      <div class="photo-modal__backdrop" id="photo-modal-backdrop"></div>
+      <div class="photo-modal__content">
+        <button
+          class="photo-modal__close"
+          id="photo-modal-close"
+          type="button"
+          aria-label="Cerrar imagen"
+        >
+          ✕
+        </button>
+        <img
+          src=""
+          alt="Foto de nosotros"
+          class="photo-modal__image"
+          id="photo-modal-image"
+        />
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
